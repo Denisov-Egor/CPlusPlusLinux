@@ -3,7 +3,7 @@
 using namespace std;
 
 int main()
-{ 
+{
   int n;
   long long f = 1;
 
@@ -13,6 +13,5 @@ int main()
   {
     f *= i;
   }
-  
-  cout << f ;
+  cout << f;
 }
