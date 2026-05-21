@@ -12,7 +12,7 @@ int main()
   {
     if (n % i == 0)
     {
-      f++;
+      f++;2
       break;
     }
   }
