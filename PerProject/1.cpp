@@ -1,29 +1,20 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 int main()
 {
-  int choice;
+  const string SECRET = "constanta";
+  string word = SECRET;
+  string guessed(word.length());
 
-  cout << "Введите число от 1 до 4: ";
+  string input;
+  
+  int attempts = 6;
 
-  cin >> choice;
-
-  switch (choice)
+  while (attempts > 0 && guessed != word)
   {
-  case 1:
-    cout << "Информация о программе" << endl;
-      break;
-    case 2:
-      cout << "Начало игры" << endl;
-      break;
-    case 3:
-      cout << "Настройки программы" << endl;
-      break;
-      case 4:
-        cout << "Выход из программы" << endl;
-      return 0;
+    cin >> input;
   }
-
 }
