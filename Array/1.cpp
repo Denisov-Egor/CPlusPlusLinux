@@ -4,15 +4,16 @@ using namespace std;
 
 int main()
 {
-  int n;
+  int SIZE;
+
+  cin >> SIZE;
+
+  int Arr[SIZE];
   
-  cin >> n;
-
-  int Arr[n];
-
-  for (int i = 0; i < Arr.len; i++)
+  for (int i = 0; i < SIZE; i++)
   {
-    /* code */
+    cin >> Arr[i] << endl;
+
+    cout << Arr[i];
   }
-  
 }
