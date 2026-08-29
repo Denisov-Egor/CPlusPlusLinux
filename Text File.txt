@@ -1,0 +1,365 @@
+массивы 
+ссылки 
+
+vector 
+19. begin() и end()
+
+Это уже очень важная тема.
+
+numbers.begin()
+
+указывает на начало vector.
+
+numbers.end()
+
+указывает после последнего элемента.
+
+Например:
+
+10 20 30 40
+↑          ↑
+begin      end
+
+end() — это не 40.
+
+Это позиция после 40.
+
+20. sort()
+
+Для сортировки:
+
+#include <algorithm>
+
+И:
+
+sort(numbers.begin(), numbers.end());
+
+Например:
+
+vector<int> numbers = {5, 1, 8, 2, 3};
+
+sort(numbers.begin(), numbers.end());
+
+Получим:
+
+1 2 3 5 8
+21. Сортировка по убыванию
+sort(numbers.begin(), numbers.end(), greater<int>());
+
+Например:
+
+5 1 8 2 3
+
+станет:
+
+8 5 3 2 1
+22. reverse()
+
+Развернуть vector:
+
+reverse(numbers.begin(), numbers.end());
+
+Например:
+
+1 2 3 4 5
+
+↓
+
+5 4 3 2 1
+23. find()
+
+Найти элемент:
+
+#include <algorithm>
+auto it = find(numbers.begin(), numbers.end(), 30);
+
+Если нашли:
+
+if (it != numbers.end())
+{
+    cout << "Найдено";
+}
+
+Это уже работа с итераторами.
+
+Пока достаточно понимать:
+
+find(begin, end, значение)
+
+ищет значение в vector.
+
+24. count()
+
+Посчитать количество одинаковых элементов:
+
+count(numbers.begin(), numbers.end(), 5);
+
+Например:
+
+vector<int> numbers = {5, 2, 5, 3, 5, 1};
+
+cout << count(numbers.begin(), numbers.end(), 5);
+
+Результат:
+
+3
+25. Capacity — важное отличие от size()
+
+У vector есть:
+
+size()
+
+и:
+
+capacity()
+size()
+
+Количество существующих элементов.
+
+capacity()
+
+Количество элементов, под которые vector уже выделил память.
+
+Например:
+
+vector<int> numbers;
+
+numbers.push_back(10);
+numbers.push_back(20);
+numbers.push_back(30);
+
+Может быть:
+
+size = 3
+capacity = 4
+
+или:
+
+size = 3
+capacity = 8
+
+capacity() не гарантирована конкретным числом.
+
+26. Почему vector эффективный?
+
+Представь:
+
+vector
+┌────┬────┬────┬────┬────┬────┐
+│ 10 │ 20 │ 30 │ 40 │    │    │
+└────┴────┴────┴────┴────┴────┘
+       ↑
+     элементы
+
+Когда место заканчивается, vector выделяет новый больший участок памяти, копирует/перемещает элементы и освобождает старый.
+
+Поэтому:
+
+push_back()
+
+обычно очень быстрый.
+
+В среднем сложность:
+
+push_back → O(1) амортизированно
+27. reserve()
+
+Можно заранее выделить память:
+
+numbers.reserve(1000);
+
+Это говорит:
+
+Я планирую добавить примерно 1000 элементов, подготовь память.
+
+Например:
+
+vector<int> numbers;
+
+numbers.reserve(100000);
+
+for (int i = 0; i < 100000; i++)
+{
+    numbers.push_back(i);
+}
+
+Это может уменьшить количество перераспределений памяти.
+
+Важно:
+
+reserve(100)
+
+не создаёт 100 элементов.
+
+То есть:
+
+numbers.reserve(100);
+
+cout << numbers.size();
+
+выведет:
+
+0
+
+А:
+
+numbers.resize(100);
+
+создаст 100 элементов.
+
+28. vector<string>
+
+Vector может хранить практически любой тип.
+
+Например:
+
+vector<string> names;
+
+names.push_back("Egor");
+names.push_back("Alex");
+names.push_back("Ivan");
+
+Можно:
+
+for (string name : names)
+{
+    cout << name << endl;
+}
+29. vector<double>
+vector<double> numbers;
+
+numbers.push_back(2.5);
+numbers.push_back(3.14);
+numbers.push_back(10.7);
+30. Vector из vector
+
+Можно создавать двумерные массивы:
+
+vector<vector<int>> matrix;
+
+Например:
+
+vector<vector<int>> matrix =
+{
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+Получается:
+
+1 2 3
+4 5 6
+7 8 9
+
+Доступ:
+
+matrix[0][0]
+
+→ 1
+
+matrix[1][2]
+
+→ 6
+
+31. Ввод двумерного vector
+int n, m;
+
+cin >> n >> m;
+
+vector<vector<int>> matrix(n, vector<int>(m));
+
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < m; j++)
+    {
+        cin >> matrix[i][j];
+    }
+}
+
+Это очень важный шаблон.
+
+32. vector<bool>
+
+Есть отдельная особенность:
+
+vector<bool>
+
+не совсем обычный vector — стандартная библиотека реализует его как специальную компактную битовую структуру.
+
+Для начала просто запомни, что:
+
+vector<bool> visited;
+
+часто используется для хранения состояний:
+
+false false true false true
+
+Например, в алгоритмах.
+
+33. Передача vector в функцию
+
+Очень важно научиться этому.
+
+Плохой вариант:
+
+void print(vector<int> numbers)
+{
+    ...
+}
+
+Здесь vector копируется.
+
+Лучше:
+
+void print(const vector<int>& numbers)
+{
+    for (int x : numbers)
+    {
+        cout << x << " ";
+    }
+}
+
+const vector<int>& означает:
+
+Передать существующий vector без копирования и запретить функции его изменять.
+
+Если функция должна изменять vector:
+
+void doubleNumbers(vector<int>& numbers)
+{
+    for (int& x : numbers)
+    {
+        x *= 2;
+    }
+}
+
+
+Для твоего обучения C++ я бы пока довёл до автоматизма вот это:
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<int> numbers(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> numbers[i];
+    }
+
+    for (int x : numbers)
+    {
+        cout << x << " ";
+    }
+
+    return 0;
+}
+
+После этого уже начинаем решать задачи.
