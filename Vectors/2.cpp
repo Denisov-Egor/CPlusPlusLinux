@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 int main()
 {
   int n;
+  int sum = 0;
 
   cin >> n;
 
@@ -15,13 +15,9 @@ int main()
   for (int i = 0; i < a.size(); i++)
   {
     cin >> a[i];
-  }
-  
-  reverse(a.begin(), a.end());
 
-  for (int x : a)
-  {
-    cout << x << ' ';
+    sum += a[i];
   }
   
+  cout << sum;
 }
