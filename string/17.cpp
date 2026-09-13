@@ -1,25 +1,22 @@
 #include <iostream>
 #include <string>
+#include <cctype>
 
 using namespace std;
 
 int main()
 {
   string text;
-  char oldChar;
-  char newChar;
 
   getline(cin, text);
 
-  cin >> oldChar;
-  cin >> newChar;
-
   for (int i = 0; i < text.length(); i++)
   {
-    if (text[i] == oldChar)
+    if (isdigit(text[i]))
     {
-      text[i] = newChar;
-    }
+      text.erase(i, 1);
+      i--;
+    } 
   }
   cout << text;
 }
