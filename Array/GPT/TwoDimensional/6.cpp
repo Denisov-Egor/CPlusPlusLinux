@@ -4,7 +4,6 @@ using namespace std;
 
 int main()
 {
-  int min;
   int arr[3][4];
 
   for (int i = 0; i < 3; i++)
@@ -14,20 +13,15 @@ int main()
       cin >> arr[i][j];
     }
   }
-  
-  min = arr[0][0];
-  
+
   for (int i = 0; i < 3; i++)
   {
+    int sum = 0;
     for (int j = 0; j < 4; j++)
     {
-      if (arr[i][j] < min)
-      {
-        min = arr[i][j];
-      }
-    }    
+      sum += arr[i][j];
+    }
+    cout << "Строка " << i << ": сумма" << sum << endl;
   }
-
-  cout << min;
   
 }

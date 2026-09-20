@@ -4,9 +4,8 @@ using namespace std;
 
 int main()
 {
-  int min;
   int arr[3][4];
-
+  
   for (int i = 0; i < 3; i++)
   {
     for (int j = 0; j < 4; j++)
@@ -14,20 +13,23 @@ int main()
       cin >> arr[i][j];
     }
   }
-  
-  min = arr[0][0];
-  
+
+  int maxSum = arr[0][0];
+  int maxRow = 0;
+
   for (int i = 0; i < 3; i++)
   {
+    int sum = 0;
     for (int j = 0; j < 4; j++)
     {
-      if (arr[i][j] < min)
-      {
-        min = arr[i][j];
-      }
-    }    
+      sum += arr[i][j];
+    }
+    if (sum > maxSum)
+    {
+      maxSum = sum;
+      maxRow = i;
+    }
   }
-
-  cout << min;
+  cout << maxRow << maxSum;
   
 }
