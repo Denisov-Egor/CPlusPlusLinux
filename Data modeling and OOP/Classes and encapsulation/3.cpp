@@ -40,6 +40,11 @@ public:
     return quantity;
   }
 
+  double getTotalValue() const
+  {
+    return price * quantity;
+  }
+
   void setPrice(double newPrice)
   {
     if (newPrice <= 0)
@@ -107,6 +112,7 @@ int main()
       cout << "\nНазвание: " << product.getName()
       << "\nЦена: " << product.getPrice()
       << "\nКоличество: " << product.getQuantity()
+      << "\nОбщая стоимость: " << product.getTotalValue()
       << '\n';
       break;
 
