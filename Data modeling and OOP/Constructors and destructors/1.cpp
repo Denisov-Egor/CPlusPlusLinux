@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <limits>
 
 void Menu()
 {
@@ -94,9 +95,179 @@ public:
   }
 };
 
+void showAllProducts(Product products[], int SIZE)
+{
+  std::cout << "\n========== СПИСОК ТОВАРОВ ==========\n\n";
+  
+  for (int i = 0; i < SIZE; i++)
+  {
+    std::cout << "Товар №" << i + 1 << '\n';
+    products[i].displayInfo();
+  
+    std::cout << "-----------------------------------\n";
+  }
+}
+
+void addProductInfo(Product products[], int SIZE)
+{
+  int productNumber;
+  std::string newName;
+  double newPrice;
+  int newQuantity;
+
+  std::cout << "Введите номер товара (1-" << SIZE << "): ";
+  std::cin >> productNumber;
+  
+  if (productNumber > SIZE || productNumber <= 0)
+  {
+    std::cout << "Ошибка: некорректный номер товара.\n";
+    return;
+  }
+  
+  Product& product = products[productNumber - 1];
+
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  std::cout << "Введите название: ";
+  std::getline(std::cin, newName);
+  
+  if (!product.setName(newName))
+  {
+    std::cout << "Ошибка: название не может быть пустым.\n";
+    return;
+  }
+
+  std::cout << "Введите цену: ";
+  std::cin >> newPrice;
+
+  if (!product.setPrice(newPrice))
+  {
+    std::cout << "Ошибка: цена должна быть больше нуля.\n";
+    return;
+  }
+
+  std::cout << "Введите количество: ";
+  std::cin >> newQuantity;
+
+  if (!product.setQuantity(newQuantity))
+  {
+    std::cout << "Ошибка: количество не может быть отрицательным.\n";
+    return;
+  }
+
+  std::cout << "\nИнформация о товаре успешно добавлена.\n";
+}
+
+void changeProductName(Product products[], int SIZE)
+{
+  int productNumber;
+  std::string newName;
+
+  std::cout << "Введите номер товара (1-" << SIZE << "): ";
+  std::cin >> productNumber;
+
+  if (productNumber > SIZE || productNumber <= 0)
+  {
+    std::cout << "Ошибка: некорректный номер товара.\n";
+    return;
+  }
+
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  std::cout << "Введите название: ";
+  std::getline(std::cin, newName);
+
+  Product& product = products[productNumber - 1];
+
+  if (!product.setName(newName))
+  {
+    std::cout << "Ошибка: название не может быть пустым.\n";
+    return;
+  }
+
+  std::cout << "\nИмя успешно изменено.\n";
+}
+
+void changeProductPrice(Product products[], int SIZE)
+{
+  int productNumber;
+  double newPrice;
+  
+  std::cout << "Введите номер товара (1-" << SIZE << "): ";
+  std::cin >> productNumber;
+  
+  if (productNumber > SIZE || productNumber <= 0)
+  {
+    std::cout << "Ошибка: некорректный номер товара.\n";
+    return;
+  }
+  
+  Product& product = products[productNumber - 1];
+
+  std::cout << "Введите цену: ";
+  std::cin >> newPrice;
+
+  if (!product.setPrice(newPrice))
+  {
+    std::cout << "Ошибка: цена должна быть больше нуля.\n";
+    return;
+  }
+
+  std::cout << "\nЦена успешно изменена.\n";
+}
+
+void changeProductQuantity(Product products[], int SIZE)
+{
+  int productNumber;
+  int newQuantity;
+
+  std::cout << "Введите номер товара (1-" << SIZE << "): ";
+  std::cin >> productNumber;
+
+  if (productNumber > SIZE || productNumber <= 0)
+  {
+    std::cout << "Ошибка: некорректный номер товара.\n";
+    return;
+  }
+
+  Product& product = products[productNumber - 1];
+
+  std::cout << "Введите новое количество: ";
+  std::cin >> newQuantity;
+
+  if (!product.setQuantity(newQuantity))
+  {
+    std::cout << "Ошибка: количество не может быть отрицательным.\n";
+    return;
+  }
+
+  std::cout << "\nКоличество успешно изменено.\n";
+}
+
+void showProductInfo(Product products[], int SIZE)
+{
+  int productNumber;
+
+  std::cout << "Введите номер товара (1-" << SIZE << "): ";
+  std::cin >> productNumber;
+
+  if (productNumber > SIZE || productNumber <= 0)
+  {
+    std::cout << "Ошибка: некорректный номер товара.\n";
+    return;
+  }
+
+  Product& product = products[productNumber - 1];
+
+  std::cout << "\n";
+  product.displayInfo();
+}
+
 int main()
 {
-  Product products[4];
+  const int SIZE = 4;
+
+  Product products[SIZE];
   int choice = -1;
 
   while (choice != 0)
@@ -108,35 +279,27 @@ int main()
     switch (choice)
     {
       case 1:
-        std::cout << "\n========== СПИСОК ТОВАРОВ ==========\n\n";
-
-        for (int i = 0; i < 4; i++)
-        {
-          std::cout << "Товар №" << i + 1 << '\n';
-          products[i].displayInfo();
-
-          std::cout << "-----------------------------------\n";
-        }
+        showAllProducts(products, SIZE);
         break;
 
       case 2:
-        std::cout << "\nФункция добавления информации пока не реализована.\n";
+        addProductInfo(products, SIZE);
         break;
 
       case 3:
-        std::cout << "\nФункция изменения названия пока не реализована.\n";
+        changeProductName(products, SIZE);
         break;
 
       case 4:
-        std::cout << "\nФункция изменения цены пока не реализована.\n";
+        changeProductPrice(products, SIZE);
         break;
 
       case 5:
-        std::cout << "\nФункция изменения количества пока не реализована.\n";
+        changeProductQuantity(products, SIZE);
         break;
 
       case 6:
-        std::cout << "\nФункция просмотра информации пока не реализована.\n";
+        showProductInfo(products, SIZE);
         break;
 
       case 0:
