@@ -1,5 +1,15 @@
 #include <iostream>
 #include <string>
+#include <limits>
+
+void Menu()
+{
+  std::cout << "\n=== Создание пользователя ===\n"
+  << "1. Создать профиль только с именем\n"
+  << "2. Создать профиль с именем и возрастом\n"
+  << "3. Создать полный профиль\n"
+  << "0. Выход\n";
+}
 
 class User
 {
@@ -9,7 +19,7 @@ private:
   std::string email;
 public:
 User()
-: name("Неизвестно"), age(18), email("Не указан")
+    : name("Неизвестно"), age(18), email("Не указан")
 {
   
 }
@@ -43,13 +53,90 @@ void displayInfo() const
 
 int main()
 {
-  User user1;
-  User user2("Алексей");
-  User user3("Егор", 20);
-  User user4("Иван", 25, "ivan@example.com");
+  std::string name;
+  int age = 0;
+  std::string email;
 
-  user1.displayInfo();
-  user2.displayInfo();
-  user3.displayInfo();
-  user4.displayInfo();
+  int choice = -1;
+
+  while (choice != 0)
+  {
+    Menu();
+
+    std::cout << "Выберите вариант: ";
+    while (!(std::cin >> choice))
+    {
+      std::cout << "Ошика: введите число.\n";
+
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    switch (choice)
+    {
+    case 1:
+    {
+      std::cout << "Введите имя: ";
+      std::getline(std::cin, name);
+
+      User user(name);
+      user.displayInfo();
+    }
+      break;
+
+      case 2:
+      {
+        std::cout << "Введите имя: ";
+        std::getline(std::cin, name);
+
+        std::cout << "Введите возраст: ";
+        while (!(std::cin >> age))
+        {
+          std::cout << "Ошика: введите число.\n";
+
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
+        User user(name, age);
+        user.displayInfo();
+      }
+        break;
+
+      case 3:
+        {
+          std::cout << "Введите имя: ";
+          std::getline(std::cin, name);
+
+          std::cout << "Введите возраст: ";
+
+          while (!(std::cin >> age))
+          {
+          std::cout << "Ошика: введите число.\n";
+
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          }
+
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          
+          std::cout << "Введите почту: ";
+          std::getline(std::cin, email);
+
+          User user(name, age, email);
+          user.displayInfo();
+        }
+        break;
+
+      case 0:
+        std::cout << "Выход.";
+        break;
+
+    default:
+      std::cout << "Ошибка: не верный пунт меню.\n";
+      break;
+    }
+  }
 }
