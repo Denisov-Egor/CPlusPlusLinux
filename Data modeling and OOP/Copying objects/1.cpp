@@ -16,7 +16,7 @@ public:
   AppConfig(const AppConfig &other)
           : applicationName(other.applicationName), 
           maxConnections(other.maxConnections),
-          debugMode(other.debugMode)
+          debugMode(other.debugMode) 
   {}
 
   std::string getApplicationName() const{
