@@ -39,7 +39,7 @@ public:
   void displayInfo() const{
     Employee::displayInfo();
 
-    std::cout << "Язык программрования: "
+    std::cout << "Язык программирования: "
               << programmingLanguage
               << '\n';
   }
@@ -58,7 +58,7 @@ public:
   void displayInfo() const{
     Employee::displayInfo();
 
-    std::cout << "Колличество подчиненых: "
+    std::cout << "Количество подчинённых: "
               << subordinatesCount
               << '\n';
   }
